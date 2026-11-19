@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass English - Làm Chủ Phát Âm Chuẩn Bản Xứ Với IPA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for crisp UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        },
+                        accent: {
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations and utilities */
+        @keyframes sound-wave {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+        .wave-bar {
+            animation: sound-wave 1.2s infinite ease-in-out;
+            transform-origin: center;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.45s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.2s; }
+
+        .ipa-card-active {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(79, 70, 229, 0.28);
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        /* Hide scrollbar for clean horizontal tab scrolling on small screens */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-600 selection:text-white">
+
+    <!-- ==================== HEADER / STICKY NAVBAR ==================== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Compass English Logo (Compass + Sound Wave SVG) -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-800 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform">
+                        <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="18" cy="18" r="13" stroke="white" stroke-width="2" stroke-opacity="0.35"/>
+                            <path d="M18 3V6M18 30V33M3 18H6M30 18H33" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Compass Needle -->
+                            <polygon points="18,9 21.5,18 18,27 14.5,18" fill="white"/>
+                            <polygon points="18,9 21.5,18 14.5,18" fill="#FBBF24"/>
+                            <circle cx="18" cy="18" r="2" fill="#1E1B4B"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900">Compass <span class="text-brand-600">English</span></span>
+                        <span class="hidden sm:block text-[11px] font-semibold text-slate-500 -mt-0.5">Định Hướng Phát Âm Chuẩn</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation (Concise) -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                    <a href="#la-gi" class="hover:text-brand-600 transition-colors">IPA là gì?</a>
+                    <a href="#tam-quan-trong" class="hover:text-brand-600 transition-colors">Lợi ích</a>
+                    <a href="#bang-ipa" class="hover:text-brand-600 transition-colors flex items-center gap-1.5">
+                        Bảng 44 âm
+                        <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-700 rounded-full">Khẩu hình</span>
+                    </a>
+                    <a href="#lo-trinh" class="hover:text-brand-600 transition-colors">Cách học</a>
+                    <a href="#mini-quiz" class="hover:text-brand-600 transition-colors">Thử thách</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center gap-3">
+                    <a href="#bang-ipa" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold shadow-sm shadow-brand-600/20 transition-all active:scale-95">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                        <span>Luyện âm ngay</span>
+                    </a>
+                    <button id="mobile-menu-btn" aria-label="Mở menu" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-5 space-y-1.5 shadow-lg">
+            <a href="#la-gi" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-600">IPA là gì?</a>
+            <a href="#tam-quan-trong" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-600">Tại sao cần IPA?</a>
+            <a href="#bang-ipa" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-600">Bảng 44 âm & Khẩu hình</a>
+            <a href="#lo-trinh" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-600">Lộ trình 4 bước</a>
+            <a href="#mini-quiz" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-600">Thử thách tai nghe</a>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION (VISUAL-FIRST) ==================== -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-brand-50/90 via-white to-slate-50 pt-10 pb-16 lg:pt-16 lg:pb-24">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-brand-200/40 blur-3xl"></div>
+            <div class="absolute top-32 -left-24 w-80 h-80 rounded-full bg-amber-200/30 blur-3xl"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <!-- Left Headline & Visual Badges -->
+                <div class="lg:col-span-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-200 shadow-sm text-brand-700 text-xs sm:text-sm font-bold mb-5">
+                        <i class="fa-solid fa-compass text-amber-500"></i>
+                        Compass English • Tự Chủ Phát Âm Gốc
+                    </div>
+
+                    <h1 class="font-heading text-3xl sm:text-5xl lg:text-[52px] font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-5">
+                        Tự Đọc Chuẩn Bản Xứ Với <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-rose-500">Bảng IPA</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 font-medium max-w-xl mx-auto lg:mx-0 mb-8">
+                        Không cần đoán mò mặt chữ, không lệ thuộc giáo viên nước ngoài. Nắm vững 44 ký hiệu âm thanh để tự tin tra từ điển và nói chuẩn xác 100%.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+                        <a href="#bang-ipa" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-base shadow-lg shadow-brand-600/25 transition-all hover:-translate-y-0.5">
+                            <i class="fa-solid fa-headphones"></i>
+                            Khám phá 44 âm IPA
+                        </a>
+                        <a href="#la-gi" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-base shadow-sm transition-all">
+                            <i class="fa-solid fa-diagram-project text-brand-600"></i>
+                            Xem sơ đồ giải mã
+                        </a>
+                    </div>
+
+                    <!-- 3 Compact Visual Pills -->
+                    <div class="mt-9 grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0">
+                        <div class="bg-white/80 border border-slate-200/80 rounded-2xl p-3 text-center">
+                            <div class="font-heading font-extrabold text-xl sm:text-2xl text-brand-600">44</div>
+                            <div class="text-xs font-semibold text-slate-500">Ký hiệu âm</div>
+                        </div>
+                        <div class="bg-white/80 border border-slate-200/80 rounded-2xl p-3 text-center">
+                            <div class="font-heading font-extrabold text-xl sm:text-2xl text-amber-500">1-1</div>
+                            <div class="text-xs font-semibold text-slate-500">Chính xác tuyệt đối</div>
+                        </div>
+                        <div class="bg-white/80 border border-slate-200/80 rounded-2xl p-3 text-center">
+                            <div class="font-heading font-extrabold text-xl sm:text-2xl text-emerald-600">100%</div>
+                            <div class="text-xs font-semibold text-slate-500">Tự chủ luyện tập</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Visual Illustration: 1 Mặt Chữ - 3 Âm Thanh -->
+                <div class="lg:col-span-6">
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/80 border border-slate-100">
+                        <!-- Visual Header Banner -->
+                        <div class="flex items-center justify-between bg-slate-900 text-white rounded-2xl p-4 mb-6">
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1.5 rounded-xl bg-rose-500 font-mono font-bold text-base tracking-wider">-OUGH</span>
+                                <span class="text-xs sm:text-sm font-semibold text-slate-200">1 cách viết • 3 cách đọc khác nhau</span>
+                            </div>
+                            <!-- Animated SVG Sound Wave -->
+                            <svg class="w-8 h-6 text-amber-400 shrink-0" viewBox="0 0 32 24" fill="currentColor">
+                                <rect class="wave-bar" x="2" y="6" width="3" height="12" rx="1.5"/>
+                                <rect class="wave-bar" x="8" y="2" width="3" height="20" rx="1.5"/>
+                                <rect class="wave-bar" x="14" y="5" width="3" height="14" rx="1.5"/>
+                                <rect class="wave-bar" x="20" y="1" width="3" height="22" rx="1.5"/>
+                                <rect class="wave-bar" x="26" y="7" width="3" height="10" rx="1.5"/>
+                            </svg>
+                        </div>
+
+                        <!-- 3 Visual Sound Cards -->
+                        <div class="grid sm:grid-cols-3 gap-3.5">
+                            <!-- Card 1 -->
+                            <button onclick="speakText('though', this)" class="group p-4 rounded-2xl bg-indigo-50/70 hover:bg-indigo-600 border border-indigo-200/80 transition-all text-center flex flex-col items-center">
+                                <div class="w-11 h-11 rounded-full bg-white text-indigo-600 flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </div>
+                                <span class="font-heading font-extrabold text-lg text-slate-900 group-hover:text-white">though</span>
+                                <span class="font-mono text-sm font-bold text-indigo-600 bg-white px-2.5 py-0.5 rounded-lg mt-1.5 shadow-sm">/ðəʊ/</span>
+                                <span class="text-[11px] font-medium text-slate-500 group-hover:text-indigo-100 mt-2">Đuôi /əʊ/ (ô)</span>
+                            </button>
+
+                            <!-- Card 2 -->
+                            <button onclick="speakText('through', this)" class="group p-4 rounded-2xl bg-emerald-50/70 hover:bg-emerald-600 border border-emerald-200/80 transition-all text-center flex flex-col items-center">
+                                <div class="w-11 h-11 rounded-full bg-white text-emerald-600 flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </div>
+                                <span class="font-heading font-extrabold text-lg text-slate-900 group-hover:text-white">through</span>
+                                <span class="font-mono text-sm font-bold text-emerald-600 bg-white px-2.5 py-0.5 rounded-lg mt-1.5 shadow-sm">/θruː/</span>
+                                <span class="text-[11px] font-medium text-slate-500 group-hover:text-emerald-100 mt-2">Đuôi /uː/ (u dài)</span>
+                            </button>
+
+                            <!-- Card 3 -->
+                            <button onclick="speakText('tough', this)" class="group p-4 rounded-2xl bg-rose-50/70 hover:bg-rose-600 border border-rose-200/80 transition-all text-center flex flex-col items-center">
+                                <div class="w-11 h-11 rounded-full bg-white text-rose-600 flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </div>
+                                <span class="font-heading font-extrabold text-lg text-slate-900 group-hover:text-white">tough</span>
+                                <span class="font-mono text-sm font-bold text-rose-600 bg-white px-2.5 py-0.5 rounded-lg mt-1.5 shadow-sm">/tʌf/</span>
+                                <span class="text-[11px] font-medium text-slate-500 group-hover:text-rose-100 mt-2">Đuôi /ʌf/ (ắp-f)</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-5 pt-4 border-t border-slate-100 text-center text-xs font-semibold text-slate-500">
+                            <i class="fa-solid fa-hand-pointer text-brand-600 mr-1"></i> Bấm vào từng thẻ để nghe sự khác biệt âm thanh
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 1: IPA LÀ GÌ? (VISUAL DIAGRAM) ==================== -->
+    <section id="la-gi" class="py-16 sm:py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600 bg-brand-50 px-3.5 py-1.5 rounded-full">Bản chất IPA</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+                    IPA Là Bộ Giải Mã Âm Thanh
+                </h2>
+            </div>
+
+            <!-- Visual SVG Flow Diagram: Spell -> IPA -> Sound -->
+            <div class="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200/80 mb-12">
+                <div class="grid md:grid-cols-5 gap-4 items-center text-center">
+                    <!-- Step 1: Spelling -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-font"></i>
+                        </div>
+                        <div class="font-heading font-bold text-lg text-slate-900">Mặt Chữ (Spell)</div>
+                        <div class="font-mono text-sm text-slate-500 mt-1">26 chữ cái A - Z</div>
+                        <span class="inline-block mt-2 text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg">Dễ gây đoán sai</span>
+                    </div>
+
+                    <!-- Arrow 1 -->
+                    <div class="flex justify-center py-2 md:py-0">
+                        <svg class="w-10 h-10 text-brand-500 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </div>
+
+                    <!-- Step 2: IPA Decoder -->
+                    <div class="bg-brand-900 text-white p-6 rounded-2xl shadow-lg border-2 border-brand-500 relative">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-600 text-amber-300 flex items-center justify-center font-mono font-extrabold text-xl mb-3">
+                            /IPA/
+                        </div>
+                        <div class="font-heading font-bold text-lg">Bộ Giải Mã IPA</div>
+                        <div class="font-mono text-sm text-brand-200 mt-1">44 ký hiệu chuẩn</div>
+                        <span class="inline-block mt-2 text-[11px] font-bold text-emerald-300 bg-emerald-500/20 px-2.5 py-1 rounded-lg">1 ký hiệu = 1 âm</span>
+                    </div>
+
+                    <!-- Arrow 2 -->
+                    <div class="flex justify-center py-2 md:py-0">
+                        <svg class="w-10 h-10 text-emerald-500 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </div>
+
+                    <!-- Step 3: Exact Sound -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </div>
+                        <div class="font-heading font-bold text-lg text-slate-900">Âm Thanh Chuẩn</div>
+                        <div class="font-mono text-sm text-slate-500 mt-1">Đọc đúng 100%</div>
+                        <span class="inline-block mt-2 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">Chuẩn quốc tế</span>
+                    </div>
+                </div>
+
+                <!-- 44 Sounds Visual Block Chart -->
+                <div class="mt-10 pt-8 border-t border-slate-200/80">
+                    <div class="text-center font-heading font-bold text-base text-slate-700 mb-4">Cấu trúc 44 âm vị tiếng Anh</div>
+                    <!-- Visual Proportion Bar -->
+                    <div class="h-5 w-full rounded-full overflow-hidden flex shadow-inner mb-6">
+                        <div class="bg-brand-600 h-full" style="width: 27.3%" title="12 Nguyên âm đơn"></div>
+                        <div class="bg-amber-400 h-full" style="width: 18.2%" title="8 Nguyên âm đôi"></div>
+                        <div class="bg-sky-500 h-full" style="width: 20.5%" title="9 Phụ âm vô thanh"></div>
+                        <div class="bg-emerald-500 h-full" style="width: 34%" title="15 Phụ âm hữu thanh"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center gap-3.5">
+                            <span class="w-11 h-11 rounded-xl bg-brand-100 text-brand-700 font-heading font-extrabold text-lg flex items-center justify-center shrink-0">12</span>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Nguyên âm đơn</div>
+                                <div class="text-xs text-slate-500">Ngắn & Dài (<span class="font-mono">:</span>)</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center gap-3.5">
+                            <span class="w-11 h-11 rounded-xl bg-amber-100 text-amber-700 font-heading font-extrabold text-lg flex items-center justify-center shrink-0">08</span>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Nguyên âm đôi</div>
+                                <div class="text-xs text-slate-500">Trượt 2 khẩu hình</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center gap-3.5">
+                            <span class="w-11 h-11 rounded-xl bg-sky-100 text-sky-700 font-heading font-extrabold text-lg flex items-center justify-center shrink-0">09</span>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Phụ âm vô thanh</div>
+                                <div class="text-xs text-slate-500">Bật hơi, không rung</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center gap-3.5">
+                            <span class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 font-heading font-extrabold text-lg flex items-center justify-center shrink-0">15</span>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Phụ âm hữu thanh</div>
+                                <div class="text-xs text-slate-500">Rung dây thanh quản</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 2: TẠI SAO CẦN IPA? (4 ILLUSTRATED CARDS) ==================== -->
+    <section id="tam-quan-trong" class="py-16 sm:py-20 bg-slate-50 border-t border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-rose-600 bg-rose-50 px-3.5 py-1.5 rounded-full">Tại sao phải học IPA?</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+                    4 Lợi Thế Khi Làm Chủ IPA
+                </h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1: Dictionary + Audio SVG -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-brand-50 flex items-center justify-center">
+                        <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none">
+                            <rect x="12" y="10" width="32" height="44" rx="5" fill="#4F46E5"/>
+                            <rect x="16" y="14" width="24" height="14" rx="2" fill="#EEF2FF"/>
+                            <text x="28" y="24" text-anchor="middle" fill="#4F46E5" font-family="monospace" font-weight="bold" font-size="9">/ə/</text>
+                            <circle cx="46" cy="42" r="11" fill="#FBBF24"/>
+                            <path d="M43 39V45L49 42L43 39Z" fill="#1E1B4B"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Đọc chuẩn mọi từ mới</h3>
+                    <p class="text-sm text-slate-500">Nhìn phiên âm từ điển là tự đọc đúng 100%, không đoán mò.</p>
+                </div>
+
+                <!-- Card 2: Headphones + Matching Sound Wave SVG -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-emerald-50 flex items-center justify-center">
+                        <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none">
+                            <path d="M16 34V30C16 21.1634 23.1634 14 32 14C40.8366 14 48 21.1634 48 30V34" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+                            <rect x="12" y="32" width="8" height="16" rx="4" fill="#10B981"/>
+                            <rect x="44" y="32" width="8" height="16" rx="4" fill="#10B981"/>
+                            <path d="M25 40L29 34L33 44L37 36L40 40" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Nghe bắt âm nhạy bén</h3>
+                    <p class="text-sm text-slate-500">Não bộ nhận diện ngay âm thanh chuẩn khi người bản xứ nói nhanh.</p>
+                </div>
+
+                <!-- Card 3: Mirror + Mouth Diagram (No Foreign Teacher Needed) -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-amber-50 flex items-center justify-center">
+                        <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none">
+                            <ellipse cx="32" cy="28" rx="16" ry="18" fill="#FEF3C7" stroke="#D97706" stroke-width="3.5"/>
+                            <path d="M25 28C27 25 37 25 39 28C37 32 27 32 25 28Z" fill="#F43F5E"/>
+                            <path d="M32 46V54M24 54H40" stroke="#D97706" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Tự sửa lỗi tại nhà</h3>
+                    <p class="text-sm text-slate-500">Chủ động chỉnh khẩu hình môi - lưỡi mà không cần GV nước ngoài.</p>
+                </div>
+
+                <!-- Card 4: Stress & Intonation Curve SVG -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-rose-50 flex items-center justify-center">
+                        <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none">
+                            <path d="M12 44C20 44 24 20 32 20C40 20 44 38 52 34" stroke="#E11D48" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="32" cy="20" r="5" fill="#FBBF24" stroke="#E11D48" stroke-width="2.5"/>
+                            <circle cx="16" cy="43" r="3.5" fill="#FDA4AF"/>
+                            <circle cx="48" cy="35" r="3.5" fill="#FDA4AF"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-2">Nói ngữ điệu tự nhiên</h3>
+                    <p class="text-sm text-slate-500">Làm chủ trọng âm và nối âm, xóa bỏ giọng đọc rời rạc.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 3: INTERACTIVE IPA CHART & SVG MOUTH DIAGRAM ==================== -->
+    <section id="bang-ipa" class="py-16 sm:py-20 bg-white border-t border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600 bg-brand-50 px-3.5 py-1.5 rounded-full">Phòng Lab Khẩu Hình</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 mb-2">
+                    Bảng 44 Âm IPA Tương Tác
+                </h2>
+                <p class="text-slate-500 text-sm sm:text-base">
+                    Bấm vào từng âm để nghe phát âm và xem <strong>sơ đồ khẩu hình môi - lưỡi</strong> trực quan.
+                </p>
+            </div>
+
+            <!-- Controls Bar -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-100/80 p-2 rounded-2xl mb-8">
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full md:w-auto pb-1 md:pb-0" role="tablist">
+                    <button onclick="filterIPA('all')" id="tab-all" class="ipa-tab px-4 py-2.5 rounded-xl text-sm font-bold bg-white text-brand-700 shadow-sm transition-all whitespace-nowrap">
+                        Tất cả (44)
+                    </button>
+                    <button onclick="filterIPA('monophthongs')" id="tab-monophthongs" class="ipa-tab px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap">
+                        Nguyên âm đơn (12)
+                    </button>
+                    <button onclick="filterIPA('diphthongs')" id="tab-diphthongs" class="ipa-tab px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap">
+                        Nguyên âm đôi (8)
+                    </button>
+                    <button onclick="filterIPA('consonants')" id="tab-consonants" class="ipa-tab px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap">
+                        Phụ âm (24)
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-3 px-2 w-full md:w-auto justify-between md:justify-end">
+                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+                        <span>Giọng:</span>
+                        <select id="voice-accent" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+                            <option value="en-US">Anh - Mỹ (US)</option>
+                            <option value="en-GB">Anh - Anh (UK)</option>
+                        </select>
+                    </div>
+                    <button id="slow-mode-btn" onclick="toggleSlowMode()" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-brand-400 transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-gauge-simple text-brand-500"></i>
+                        <span id="slow-mode-label">Chuẩn (1x)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Layout: Chart Grid + Visual SVG Mouth Inspector -->
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- IPA Cards Grid -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- Group 1: Monophthongs -->
+                    <div id="group-monophthongs" class="ipa-group">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-brand-600"></span>
+                                Nguyên Âm Đơn (12)
+                            </h3>
+                            <span class="text-xs font-semibold text-slate-500">Dấu <code class="font-mono font-bold text-brand-600">:</code> = Âm dài</span>
+                        </div>
+                        <div id="grid-monophthongs" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 sm:gap-3"></div>
+                    </div>
+
+                    <!-- Group 2: Diphthongs -->
+                    <div id="group-diphthongs" class="ipa-group">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                Nguyên Âm Đôi (8)
+                            </h3>
+                            <span class="text-xs font-semibold text-slate-500">Trượt khẩu hình</span>
+                        </div>
+                        <div id="grid-diphthongs" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 sm:gap-3"></div>
+                    </div>
+
+                    <!-- Group 3: Consonants -->
+                    <div id="group-consonants" class="ipa-group">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                Phụ Âm (24)
+                            </h3>
+                            <div class="flex items-center gap-2 text-xs font-bold">
+                                <span class="flex items-center gap-1 text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md border border-sky-200">
+                                    <span class="w-2 h-2 rounded-full bg-sky-500"></span> Vô thanh
+                                </span>
+                                <span class="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Hữu thanh
+                                </span>
+                            </div>
+                        </div>
+                        <div id="grid-consonants" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 sm:gap-3"></div>
+                    </div>
+                </div>
+
+                <!-- Visual SVG Articulation Inspector (Sticky) -->
+                <div class="lg:col-span-4 lg:sticky lg:top-24">
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-2xl border border-slate-800">
+                        <!-- Top Badges -->
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="insp-category" class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                                Nguyên âm đơn dài
+                            </span>
+                            <span id="insp-voicing" class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-wave-square"></i> Hữu thanh
+                            </span>
+                        </div>
+
+                        <!-- Dynamic SVG Mouth & Tongue Diagram -->
+                        <div class="bg-slate-800/90 rounded-2xl p-4 border border-slate-700/80 mb-5 flex flex-col items-center">
+                            <div id="svg-mouth-container" class="w-44 h-32 flex items-center justify-center">
+                                <!-- Dynamic SVG injected by JS -->
+                            </div>
+                            <div class="flex items-center gap-4 text-[11px] font-semibold text-slate-400 mt-1">
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span> Môi</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-white inline-block"></span> Răng</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span> Lưỡi</span>
+                            </div>
+                        </div>
+
+                        <!-- Symbol + Word + Audio Button -->
+                        <div class="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4 border border-slate-700/60 mb-4">
+                            <div>
+                                <div class="flex items-baseline gap-2.5">
+                                    <span id="insp-symbol" class="font-mono text-4xl font-extrabold text-amber-400">/iː/</span>
+                                    <span id="insp-word" class="font-heading font-bold text-xl text-white">sheep</span>
+                                </div>
+                                <div class="text-xs text-slate-400 mt-1">
+                                    <span id="insp-word-ipa" class="font-mono text-brand-300">/ʃiːp/</span> • <span id="insp-meaning">con cừu</span>
+                                </div>
+                            </div>
+                            <button onclick="replayCurrentSound()" class="w-14 h-14 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white flex flex-col items-center justify-center gap-0.5 shadow-lg shadow-brand-600/30 transition-all active:scale-95 shrink-0">
+                                <i class="fa-solid fa-volume-high text-lg"></i>
+                                <span class="text-[10px] font-bold">Nghe</span>
+                            </button>
+                        </div>
+
+                        <!-- Concise 1-2 Line Mouth Cue -->
+                        <div class="bg-slate-800/40 rounded-xl p-3.5 border border-slate-700/50">
+                            <p id="insp-mouth" class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                                Kéo căng khóe miệng như mỉm cười, nâng đầu lưỡi cao và kéo dài âm "i".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 4: LỘ TRÌNH 4 BƯỚC TRỰC QUAN ==================== -->
+    <section id="lo-trinh" class="py-16 sm:py-20 bg-slate-50 border-t border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3.5 py-1.5 rounded-full">Phương pháp Compass English</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+                    Cách Học IPA Hiệu Quả Trong 4 Bước
+                </h2>
+            </div>
+
+            <!-- Horizontal Visual Timeline -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm text-center relative group hover:border-brand-400 transition-all">
+                    <span class="inline-block px-3 py-1 rounded-full bg-brand-600 text-white font-heading font-extrabold text-xs mb-4">Bước 01</span>
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-code-compare"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-1.5">Tách cặp âm đối lập</h3>
+                    <p class="text-xs sm:text-sm text-slate-500">Luyện theo cặp ngắn/dài (<span class="font-mono text-brand-600">/ɪ/ - /iː/</span>) để tai phân biệt rõ.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm text-center relative group hover:border-amber-400 transition-all">
+                    <span class="inline-block px-3 py-1 rounded-full bg-amber-500 text-white font-heading font-extrabold text-xs mb-4">Bước 02</span>
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-1.5">Nhìn gương chỉnh khẩu hình</h3>
+                    <p class="text-xs sm:text-sm text-slate-500">Soi gương kiểm tra độ mở hàm và vị trí lưỡi chuẩn xác.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm text-center relative group hover:border-rose-400 transition-all">
+                    <span class="inline-block px-3 py-1 rounded-full bg-rose-500 text-white font-heading font-extrabold text-xs mb-4">Bước 03</span>
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-1.5">Đọc chậm nối âm</h3>
+                    <p class="text-xs sm:text-sm text-slate-500">Ghép âm vào từ, nhấn đúng trọng âm <span class="font-mono font-bold text-rose-500">ˈ</span> và bật đủ âm cuối.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm text-center relative group hover:border-emerald-400 transition-all">
+                    <span class="inline-block px-3 py-1 rounded-full bg-emerald-600 text-white font-heading font-extrabold text-xs mb-4">Bước 04</span>
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-1.5">Thu âm đối chiếu</h3>
+                    <p class="text-xs sm:text-sm text-slate-500">Ghi âm giọng đọc và so sánh trực tiếp với audio từ điển.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECTION 5: MINI-GAME THỬ THÁCH TAI NGHE (3 CÂU NHANH) ==================== -->
+    <section id="mini-quiz" class="py-16 sm:py-20 bg-white border-t border-slate-200/70">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-3.5 py-1.5 rounded-full">Mini-Game 30 Giây</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+                    Thử Thách Tai Nghe IPA
+                </h2>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <span id="quiz-progress-text" class="text-sm font-bold text-brand-600">Câu 1 / 3</span>
+                    <span id="quiz-score-badge" class="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">Điểm: 0</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden mb-6">
+                    <div id="quiz-progress-bar" class="h-full bg-brand-600 transition-all duration-300" style="width: 33.3%"></div>
+                </div>
+
+                <!-- Active Question -->
+                <div id="quiz-question-box">
+                    <p id="quiz-prompt" class="text-base font-bold text-slate-800 mb-4">
+                        Phiên âm này là của từ nào?
+                    </p>
+                    <div class="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-5">
+                        <span id="quiz-ipa-display" class="font-mono text-2xl sm:text-3xl font-extrabold text-brand-600">/ˈbɪz.nəs/</span>
+                        <button onclick="playQuizAudio()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold transition-colors">
+                            <i class="fa-solid fa-volume-high"></i> Nghe âm
+                        </button>
+                    </div>
+
+                    <div id="quiz-options" class="grid sm:grid-cols-2 gap-3 mb-5"></div>
+
+                    <div id="quiz-feedback" class="hidden p-3.5 rounded-2xl text-xs sm:text-sm font-medium mb-5"></div>
+
+                    <div class="flex justify-end">
+                        <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md transition-all">
+                            Tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Celebration Result View -->
+                <div id="quiz-result-box" class="hidden text-center py-6">
+                    <div class="w-20 h-20 rounded-full bg-amber-100 text-amber-500 flex items-center justify-center text-4xl mx-auto mb-4 animate-bounce">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl font-extrabold text-slate-900 mb-2">
+                        Hoàn thành! Điểm của bạn: <span id="final-score" class="text-brand-600">3/3</span>
+                    </h3>
+                    <p id="final-message" class="text-sm text-slate-600 max-w-md mx-auto mb-6">
+                        Tuyệt vời! Đôi tai của bạn nhận diện phiên âm IPA rất nhạy bén.
+                    </p>
+                    <button onclick="restartQuiz()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md transition-all">
+                        <i class="fa-solid fa-rotate-right"></i> Chơi lại
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER (COMPASS ENGLISH) ==================== -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white">
+                        <svg class="w-6 h-6" viewBox="0 0 36 36" fill="none">
+                            <circle cx="18" cy="18" r="13" stroke="white" stroke-width="2" stroke-opacity="0.4"/>
+                            <polygon points="18,9 21.5,18 18,27 14.5,18" fill="white"/>
+                            <polygon points="18,9 21.5,18 14.5,18" fill="#FBBF24"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl text-white">Compass <span class="text-brand-400">English</span></span>
+                        <p class="text-xs text-amber-400 font-semibold">Làm chủ phát âm - Vững vàng định hướng tiếng Anh</p>
+                    </div>
+                </a>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm font-semibold">
+                    <a href="#la-gi" class="hover:text-white transition-colors">IPA là gì?</a>
+                    <a href="#tam-quan-trong" class="hover:text-white transition-colors">Lợi ích</a>
+                    <a href="#bang-ipa" class="hover:text-white transition-colors">Bảng 44 âm</a>
+                    <a href="#lo-trinh" class="hover:text-white transition-colors">Cách học</a>
+                    <a href="#mini-quiz" class="hover:text-white transition-colors">Thử thách</a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+                <p>© 2026 Compass English. Hệ thống tự chủ phát âm chuẩn quốc tế dành cho người Việt.</p>
+                <p class="font-mono text-slate-400">/ˈkʌm.pəs ˈɪŋ.ɡlɪʃ/</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification for Audio Feedback -->
+    <div id="audio-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 text-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span id="audio-toast-text">Đang phát âm: <strong>sheep</strong></span>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        /**
+         * Complete Dataset of 44 English IPA Sounds with Visual Mouth Shapes
+         * mouthShape types: 'smile', 'neutral', 'round', 'wide', 'teeth-lip', 'tongue-teeth', 'closed-lips', 'tongue-up'
+         */
+        const ipaData = [
+            // --- 12 MONOPHTHONGS ---
+            {
+                symbol: '/iː/', category: 'monophthongs', catLabel: 'Nguyên âm đơn dài', voicing: 'Hữu thanh', mouthShape: 'smile',
+                word: 'sheep', wordIpa: '/ʃiːp/', meaning: 'con cừu',
+                mouth: 'Kéo căng khóe miệng như mỉm cười, nâng đầu lưỡi cao và kéo dài âm "i".'
+            },
+            {
+                symbol: '/ɪ/', category: 'monophthongs', catLabel: 'Nguyên âm đơn ngắn', voicing: 'Hữu thanh', mouthShape: 'neutral',
+                word: 'ship', wordIpa: '/ʃɪp/', meaning: 'con tàu',
+                mouth: 'Thả lỏng môi tự nhiên, bật âm "i" ngắn gọn và dứt khoát.'
+            },
+            {
+                symbol: '/ʊ/', category: 'monophthongs', catLabel: 'Nguyên âm đơn ngắn', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'book', wordIpa: '/bʊk/', meaning: 'quyển sách',
+                mouth: 'Hơi chu nhẹ môi nhưng thả lỏng, đọc âm "u" ngắn dứt khoát.'
+            },
+            {
+                symbol: '/uː/', category: 'monophthongs', catLabel: 'Nguyên âm đơn dài', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'food', wordIpa: '/fuːd/', meaning: 'thức ăn',
+                mouth: 'Chu tròn căng môi về phía trước như huýt sáo, kéo dài âm "u".'
+            },
+            {
+                symbol: '/e/', category: 'monophthongs', catLabel: 'Nguyên âm đơn ngắn', voicing: 'Hữu thanh', mouthShape: 'neutral',
+                word: 'bed', wordIpa: '/bed/', meaning: 'cái giường',
+                mouth: 'Miệng mở vừa tự nhiên, đầu lưỡi chạm chân răng dưới, đọc âm "e" ngắn.'
+            },
+            {
+                symbol: '/ə/', category: 'monophthongs', catLabel: 'Nguyên âm ngắn (Schwa)', voicing: 'Hữu thanh', mouthShape: 'neutral',
+                word: 'teacher', wordIpa: '/ˈtiː.tʃər/', meaning: 'giáo viên',
+                mouth: 'Thả lỏng hoàn toàn môi và hàm ở trạng thái nghỉ, bật âm "ơ" cực nhẹ.'
+            },
+            {
+                symbol: '/ɜː/', category: 'monophthongs', catLabel: 'Nguyên âm đơn dài', voicing: 'Hữu thanh', mouthShape: 'tongue-up',
+                word: 'bird', wordIpa: '/bɜːd/', meaning: 'con chim',
+                mouth: 'Môi mở vừa, hơi cong nhẹ đầu lưỡi lên trên và kéo dài âm "ơ" trầm.'
+            },
+            {
+                symbol: '/ɔː/', category: 'monophthongs', catLabel: 'Nguyên âm đơn dài', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'door', wordIpa: '/dɔːr/', meaning: 'cánh cửa',
+                mouth: 'Chu tròn môi vừa phải, hạ nhẹ hàm và kéo dài âm "o" tròn trịa.'
+            },
+            {
+                symbol: '/æ/', category: 'monophthongs', catLabel: 'Nguyên âm ngắn (E bẹt)', voicing: 'Hữu thanh', mouthShape: 'wide',
+                word: 'cat', wordIpa: '/kæt/', meaning: 'con mèo',
+                mouth: 'Hạ thấp hàm dưới mở rộng miệng theo chiều dọc, đọc âm lai giữa "a" và "e".'
+            },
+            {
+                symbol: '/ʌ/', category: 'monophthongs', catLabel: 'Nguyên âm đơn ngắn', voicing: 'Hữu thanh', mouthShape: 'neutral',
+                word: 'cup', wordIpa: '/kʌp/', meaning: 'cái cốc',
+                mouth: 'Miệng mở tự nhiên, lưỡi ở trung tâm, bật dứt khoát giống âm "ă".'
+            },
+            {
+                symbol: '/ɑː/', category: 'monophthongs', catLabel: 'Nguyên âm đơn dài', voicing: 'Hữu thanh', mouthShape: 'wide',
+                word: 'car', wordIpa: '/kɑːr/', meaning: 'xe hơi',
+                mouth: 'Mở rộng hàm tự nhiên như khi khám họng, hạ thấp lưỡi và kéo dài âm "a".'
+            },
+            {
+                symbol: '/ɒ/', category: 'monophthongs', catLabel: 'Nguyên âm đơn ngắn', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'hot', wordIpa: '/hɒt/', meaning: 'nóng',
+                mouth: 'Hạ thấp hàm, môi hơi tròn nhẹ và bật âm "o" ngắn gọn.'
+            },
+
+            // --- 8 DIPHTHONGS ---
+            {
+                symbol: '/ɪə/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'smile',
+                word: 'here', wordIpa: '/hɪər/', meaning: 'ở đây',
+                mouth: 'Bắt đầu từ âm /ɪ/ hơi kéo ngang môi, trượt mượt về âm /ə/ thả lỏng.'
+            },
+            {
+                symbol: '/eɪ/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'smile',
+                word: 'face', wordIpa: '/feɪs/', meaning: 'khuôn mặt',
+                mouth: 'Mở miệng vừa ở âm /e/, sau đó kéo nhẹ khóe miệng sang âm /ɪ/.'
+            },
+            {
+                symbol: '/ʊə/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'tour', wordIpa: '/tʊər/', meaning: 'chuyến du lịch',
+                mouth: 'Từ khẩu hình tròn môi /ʊ/, mở dần môi trượt về âm /ə/ thả lỏng.'
+            },
+            {
+                symbol: '/ɔɪ/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'boy', wordIpa: '/bɔɪ/', meaning: 'cậu bé',
+                mouth: 'Chu tròn môi từ âm /ɔː/, sau đó kéo ngang môi trượt nhanh sang /ɪ/.'
+            },
+            {
+                symbol: '/əʊ/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'go', wordIpa: '/ɡəʊ/', meaning: 'đi',
+                mouth: 'Bắt đầu thả lỏng ở /ə/, sau đó thu nhỏ và chu tròn môi về /ʊ/.'
+            },
+            {
+                symbol: '/eə/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'wide',
+                word: 'hair', wordIpa: '/heər/', meaning: 'mái tóc',
+                mouth: 'Mở miệng từ âm /e/, sau đó thả lỏng hàm trượt dần về âm /ə/.'
+            },
+            {
+                symbol: '/aɪ/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'wide',
+                word: 'my', wordIpa: '/maɪ/', meaning: 'của tôi',
+                mouth: 'Mở rộng hàm ở âm /a/, nâng dần hàm và lưỡi trượt lên vị trí /ɪ/.'
+            },
+            {
+                symbol: '/aʊ/', category: 'diphthongs', catLabel: 'Nguyên âm đôi', voicing: 'Hữu thanh', mouthShape: 'round',
+                word: 'now', wordIpa: '/naʊ/', meaning: 'bây giờ',
+                mouth: 'Mở rộng hàm ở âm /a/, thu tròn môi trượt nhanh về vị trí /ʊ/.'
+            },
+
+            // --- 24 CONSONANTS ---
+            {
+                symbol: '/p/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Vô thanh', voiced: false, mouthShape: 'closed-lips',
+                word: 'pen', wordIpa: '/pen/', meaning: 'cây bút',
+                mouth: 'Mím chặt hai môi nén hơi rồi bật mạnh ra ngoài. Cổ họng không rung.'
+            },
+            {
+                symbol: '/b/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Hữu thanh', voiced: true, mouthShape: 'closed-lips',
+                word: 'book', wordIpa: '/bʊk/', meaning: 'quyển sách',
+                mouth: 'Mím hai môi rồi bật mở như /p/, đồng thời làm rung dây thanh quản.'
+            },
+            {
+                symbol: '/t/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Vô thanh', voiced: false, mouthShape: 'tongue-up',
+                word: 'tea', wordIpa: '/tiː/', meaning: 'trà',
+                mouth: 'Đầu lưỡi chạm lợi trên chặn hơi rồi bật gió sắc nét. Không rung cổ.'
+            },
+            {
+                symbol: '/d/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Hữu thanh', voiced: true, mouthShape: 'tongue-up',
+                word: 'dog', wordIpa: '/dɒɡ/', meaning: 'con chó',
+                mouth: 'Đầu lưỡi chạm lợi trên bật xuống như /t/, đồng thời làm rung cổ họng.'
+            },
+            {
+                symbol: '/tʃ/', category: 'consonants', catLabel: 'Phụ âm tắc-xát', voicing: 'Vô thanh', voiced: false, mouthShape: 'round',
+                word: 'chair', wordIpa: '/tʃeər/', meaning: 'cái ghế',
+                mouth: 'Chu nhẹ môi, nâng mặt lưỡi chạm ngạc cứng rồi bật hơi gió. Không rung cổ.'
+            },
+            {
+                symbol: '/dʒ/', category: 'consonants', catLabel: 'Phụ âm tắc-xát', voicing: 'Hữu thanh', voiced: true, mouthShape: 'round',
+                word: 'job', wordIpa: '/dʒɒb/', meaning: 'công việc',
+                mouth: 'Chu nhẹ môi, mặt lưỡi chạm ngạc cứng bật ra kết hợp rung dây thanh quản.'
+            },
+            {
+                symbol: '/k/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Vô thanh', voiced: false, mouthShape: 'wide',
+                word: 'cat', wordIpa: '/kæt/', meaning: 'con mèo',
+                mouth: 'Nâng cuống lưỡi chạm ngạc mềm phía sau họng rồi bật mạnh hơi. Không rung cổ.'
+            },
+            {
+                symbol: '/ɡ/', category: 'consonants', catLabel: 'Phụ âm bật', voicing: 'Hữu thanh', voiced: true, mouthShape: 'wide',
+                word: 'go', wordIpa: '/ɡəʊ/', meaning: 'đi',
+                mouth: 'Nâng cuống lưỡi chạm ngạc mềm bật hơi ra kết hợp rung dây thanh quản.'
+            },
+            {
+                symbol: '/f/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Vô thanh', voiced: false, mouthShape: 'teeth-lip',
+                word: 'fish', wordIpa: '/fɪʃ/', meaning: 'con cá',
+                mouth: 'Răng trên chạm nhẹ môi dưới, thổi đều luồng hơi qua khe hở. Không rung cổ.'
+            },
+            {
+                symbol: '/v/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Hữu thanh', voiced: true, mouthShape: 'teeth-lip',
+                word: 'very', wordIpa: '/ˈver.i/', meaning: 'rất',
+                mouth: 'Răng trên chạm nhẹ môi dưới, đẩy hơi đồng thời làm rung dây thanh quản.'
+            },
+            {
+                symbol: '/θ/', category: 'consonants', catLabel: 'Phụ âm xát răng', voicing: 'Vô thanh', voiced: false, mouthShape: 'tongue-teeth',
+                word: 'think', wordIpa: '/θɪŋk/', meaning: 'suy nghĩ',
+                mouth: 'Đặt nhẹ đầu lưỡi giữa hai hàm răng và thổi hơi gió ra ngoài. Không rung cổ.'
+            },
+            {
+                symbol: '/ð/', category: 'consonants', catLabel: 'Phụ âm xát răng', voicing: 'Hữu thanh', voiced: true, mouthShape: 'tongue-teeth',
+                word: 'this', wordIpa: '/ðɪs/', meaning: 'cái này',
+                mouth: 'Đặt đầu lưỡi giữa hai hàm răng như /θ/, đồng thời làm rung dây thanh quản.'
+            },
+            {
+                symbol: '/s/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Vô thanh', voiced: false, mouthShape: 'smile',
+                word: 'see', wordIpa: '/siː/', meaning: 'nhìn thấy',
+                mouth: 'Khóe miệng hơi kéo ngang, răng khép hờ, thổi luồng hơi gió sắc gọn. Không rung cổ.'
+            },
+            {
+                symbol: '/z/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Hữu thanh', voiced: true, mouthShape: 'smile',
+                word: 'zoo', wordIpa: '/zuː/', meaning: 'sở thú',
+                mouth: 'Khẩu hình giống /s/ nhưng làm rung mạnh cổ họng tạo tiếng vo ve như ong bay.'
+            },
+            {
+                symbol: '/ʃ/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Vô thanh', voiced: false, mouthShape: 'round',
+                word: 'she', wordIpa: '/ʃiː/', meaning: 'cô ấy',
+                mouth: 'Chu tròn môi về phía trước như ra hiệu "suỵt!", thổi luồng hơi gió dày. Không rung cổ.'
+            },
+            {
+                symbol: '/ʒ/', category: 'consonants', catLabel: 'Phụ âm xát', voicing: 'Hữu thanh', voiced: true, mouthShape: 'round',
+                word: 'vision', wordIpa: '/ˈvɪʒ.ən/', meaning: 'tầm nhìn',
+                mouth: 'Chu tròn môi giống /ʃ/, đẩy hơi qua lưỡi kết hợp làm rung dây thanh quản.'
+            },
+            {
+                symbol: '/m/', category: 'consonants', catLabel: 'Phụ âm mũi', voicing: 'Hữu thanh', voiced: true, mouthShape: 'closed-lips',
+                word: 'man', wordIpa: '/mæn/', meaning: 'người đàn ông',
+                mouth: 'Mím nhẹ hai môi khép kín, rung dây thanh quản và đẩy hơi thoát qua mũi.'
+            },
+            {
+                symbol: '/n/', category: 'consonants', catLabel: 'Phụ âm mũi', voicing: 'Hữu thanh', voiced: true, mouthShape: 'tongue-up',
+                word: 'no', wordIpa: '/nəʊ/', meaning: 'không',
+                mouth: 'Đầu lưỡi chạm chặt lợi trên chặn hơi miệng, rung cổ họng và đẩy hơi qua mũi.'
+            },
+            {
+                symbol: '/ŋ/', category: 'consonants', catLabel: 'Phụ âm mũi', voicing: 'Hữu thanh', voiced: true, mouthShape: 'wide',
+                word: 'sing', wordIpa: '/sɪŋ/', meaning: 'hát',
+                mouth: 'Miệng mở tự nhiên, nâng cuống lưỡi chạm ngạc mềm và đẩy hơi qua mũi.'
+            },
+            {
+                symbol: '/h/', category: 'consonants', catLabel: 'Phụ âm thanh hầu', voicing: 'Vô thanh', voiced: false, mouthShape: 'neutral',
+                word: 'hot', wordIpa: '/hɒt/', meaning: 'nóng',
+                mouth: 'Miệng mở tự nhiên, đẩy nhẹ luồng hơi ấm từ cổ họng như thở dài. Không rung cổ.'
+            },
+            {
+                symbol: '/l/', category: 'consonants', catLabel: 'Phụ âm bên', voicing: 'Hữu thanh', voiced: true, mouthShape: 'tongue-up',
+                word: 'love', wordIpa: '/lʌv/', meaning: 'tình yêu',
+                mouth: 'Đặt đầu lưỡi chạm lợi trên, rung cổ họng và cho hơi thoát qua hai rìa lưỡi.'
+            },
+            {
+                symbol: '/r/', category: 'consonants', catLabel: 'Phụ âm tiếp cận', voicing: 'Hữu thanh', voiced: true, mouthShape: 'tongue-up',
+                word: 'red', wordIpa: '/red/', meaning: 'màu đỏ',
+                mouth: 'Hơi chu nhẹ môi, uốn cong đầu lưỡi hướng lên nhưng KHÔNG chạm vòm miệng.'
+            },
+            {
+                symbol: '/w/', category: 'consonants', catLabel: 'Bán nguyên âm', voicing: 'Hữu thanh', voiced: true, mouthShape: 'round',
+                word: 'we', wordIpa: '/wiː/', meaning: 'chúng tôi',
+                mouth: 'Chu tròn căng hai môi như /uː/, sau đó mở nhanh sang nguyên âm tiếp theo.'
+            },
+            {
+                symbol: '/j/', category: 'consonants', catLabel: 'Bán nguyên âm', voicing: 'Hữu thanh', voiced: true, mouthShape: 'smile',
+                word: 'yes', wordIpa: '/jes/', meaning: 'vâng, có',
+                mouth: 'Nâng giữa lưỡi lên gần ngạc cứng, kéo nhẹ khóe miệng và bật âm "y/d" nhẹ.'
+            }
+        ];
+
+        /**
+         * Dynamic SVG Mouth & Articulation Generator
+         */
+        function getMouthSVG(shape, isVoiced) {
+            const vocalWave = isVoiced
+                ? `<g stroke="#34D399" stroke-width="2" stroke-linecap="round">
+                     <path d="M18 82 Q24 76 30 82 T42 82"/>
+                     <text x="50" y="85" fill="#34D399" font-size="9" font-weight="bold" font-family="sans-serif">Rung dây thanh</text>
+                   </g>`
+                : `<g stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3">
+                     <line x1="18" y1="82" x2="42" y2="82"/>
+                     <text x="50" y="85" fill="#38BDF8" font-size="9" font-weight="bold" font-family="sans-serif">Chỉ bật hơi gió</text>
+                   </g>`;
+
+            const shapes = {
+                'smile': `
+                    <!-- Stretched Smile Lips -->
+                    <path d="M24 38 Q70 26 116 38 Q70 54 24 38 Z" fill="#1E1B4B" stroke="#FB7185" stroke-width="5" stroke-linejoin="round"/>
+                    <rect x="44" y="33" width="52" height="5" rx="2" fill="white"/>
+                    <path d="M46 44 Q70 39 94 44" stroke="#FBBF24" stroke-width="4" stroke-linecap="round"/>
+                `,
+                'round': `
+                    <!-- Rounded O-Shape Lips -->
+                    <circle cx="70" cy="38" r="17" fill="#1E1B4B" stroke="#FB7185" stroke-width="6"/>
+                    <circle cx="70" cy="43" r="6" fill="#FBBF24"/>
+                `,
+                'wide': `
+                    <!-- Wide Open Jaw -->
+                    <ellipse cx="70" cy="40" rx="28" ry="22" fill="#1E1B4B" stroke="#FB7185" stroke-width="5"/>
+                    <path d="M50 23 Q70 26 90 23" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M50 53 Q70 46 90 53" stroke="#FBBF24" stroke-width="6" stroke-linecap="round"/>
+                `,
+                'teeth-lip': `
+                    <!-- Upper Teeth on Lower Lip -->
+                    <path d="M32 36 Q70 24 108 36 Q70 56 32 36 Z" fill="#1E1B4B" stroke="#FB7185" stroke-width="4"/>
+                    <rect x="46" y="31" width="48" height="9" rx="2" fill="white"/>
+                    <path d="M36 42 Q70 48 104 42" stroke="#FB7185" stroke-width="6" stroke-linecap="round"/>
+                `,
+                'tongue-teeth': `
+                    <!-- Tongue Tip Between Teeth -->
+                    <path d="M30 38 Q70 24 110 38 Q70 54 30 38 Z" fill="#1E1B4B" stroke="#FB7185" stroke-width="4"/>
+                    <rect x="46" y="30" width="48" height="5" rx="1.5" fill="white"/>
+                    <ellipse cx="70" cy="39" rx="16" ry="5" fill="#FBBF24"/>
+                    <rect x="48" y="44" width="44" height="4" rx="1.5" fill="white"/>
+                `,
+                'closed-lips': `
+                    <!-- Closed Pressed Lips -->
+                    <path d="M28 38 Q70 28 112 38 Q70 48 28 38 Z" fill="#FB7185"/>
+                    <line x1="28" y1="38" x2="112" y2="38" stroke="#881337" stroke-width="2.5" stroke-linecap="round"/>
+                `,
+                'tongue-up': `
+                    <!-- Tongue Tip Raised to Alveolar Ridge -->
+                    <ellipse cx="70" cy="38" rx="32" ry="17" fill="#1E1B4B" stroke="#FB7185" stroke-width="5"/>
+                    <rect x="48" y="25" width="44" height="4" rx="1.5" fill="white"/>
+                    <path d="M52 48 Q70 30 88 48" stroke="#FBBF24" stroke-width="6" stroke-linecap="round" fill="none"/>
+                `,
+                'neutral': `
+                    <!-- Relaxed Neutral Mouth -->
+                    <ellipse cx="70" cy="38" rx="30" ry="13" fill="#1E1B4B" stroke="#FB7185" stroke-width="5"/>
+                    <path d="M50 43 Q70 40 90 43" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+                `
+            };
+
+            return `
+                <svg viewBox="0 0 140 92" class="w-full h-full">
+                    ${shapes[shape] || shapes['neutral']}
+                    ${vocalWave}
+                </svg>
+            `;
+        }
+
+        // State variables
+        let currentSelectedItem = ipaData[0];
+        let isSlowMode = false;
+        let toastTimeout = null;
+
+        /**
+         * Render IPA Grids on Page Load
+         */
+        function renderIPAGrids() {
+            const monoGrid = document.getElementById('grid-monophthongs');
+            const diphGrid = document.getElementById('grid-diphthongs');
+            const consGrid = document.getElementById('grid-consonants');
+
+            monoGrid.innerHTML = '';
+            diphGrid.innerHTML = '';
+            consGrid.innerHTML = '';
+
+            ipaData.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.dataset.index = index;
+                btn.onclick = () => selectIPASound(index, btn);
+
+                let badgeDot = '';
+                let borderStyle = 'border-slate-200 hover:border-brand-400 bg-slate-50/70 hover:bg-brand-50/60';
+
+                if (item.category === 'consonants') {
+                    if (item.voiced) {
+                        badgeDot = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span>';
+                        borderStyle = 'border-emerald-200/80 hover:border-emerald-500 bg-emerald-50/30 hover:bg-emerald-50';
+                    } else {
+                        badgeDot = '<span class="w-2 h-2 rounded-full bg-sky-500"></span>';
+                        borderStyle = 'border-sky-200/80 hover:border-sky-500 bg-sky-50/30 hover:bg-sky-50';
+                    }
+                } else if (item.category === 'diphthongs') {
+                    borderStyle = 'border-amber-200/80 hover:border-amber-500 bg-amber-50/30 hover:bg-amber-50';
+                }
+
+                btn.className = `ipa-card group relative flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-200 cursor-pointer ${borderStyle} ${index === 0 ? 'ipa-card-active' : ''}`;
+                btn.innerHTML = `
+                    <div class="w-full flex items-center justify-between text-[10px] text-slate-400 mb-0.5">
+                        ${badgeDot || '<span></span>'}
+                        <i class="fa-solid fa-volume-low opacity-40 group-hover:opacity-100 group-hover:text-brand-600 transition-opacity"></i>
+                    </div>
+                    <span class="font-mono text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">${item.symbol}</span>
+                    <span class="text-xs font-medium text-slate-500 group-hover:text-slate-800 mt-0.5 truncate max-w-full">${item.word}</span>
+                `;
+
+                if (item.category === 'monophthongs') monoGrid.appendChild(btn);
+                else if (item.category === 'diphthongs') diphGrid.appendChild(btn);
+                else consGrid.appendChild(btn);
+            });
+
+            // Render initial SVG mouth diagram
+            document.getElementById('svg-mouth-container').innerHTML = getMouthSVG(ipaData[0].mouthShape, true);
+        }
+
+        /**
+         * Select an IPA Sound Card: Update SVG Mouth Diagram & Play Pronunciation
+         */
+        function selectIPASound(index, cardElement) {
+            const item = ipaData[index];
+            currentSelectedItem = item;
+
+            document.querySelectorAll('.ipa-card').forEach(el => el.classList.remove('ipa-card-active'));
+            if (cardElement) cardElement.classList.add('ipa-card-active');
+
+            document.getElementById('insp-category').textContent = item.catLabel;
+            const voicingEl = document.getElementById('insp-voicing');
+            const isVoiced = item.voicing !== 'Vô thanh';
+
+            if (!isVoiced) {
+                voicingEl.innerHTML = '<i class="fa-solid fa-wind"></i> Vô thanh';
+                voicingEl.className = 'text-xs font-bold text-sky-400 flex items-center gap-1.5';
+            } else {
+                voicingEl.innerHTML = '<i class="fa-solid fa-wave-square"></i> Hữu thanh';
+                voicingEl.className = 'text-xs font-bold text-emerald-400 flex items-center gap-1.5';
+            }
+
+            // Update SVG Mouth Graphic
+            document.getElementById('svg-mouth-container').innerHTML = getMouthSVG(item.mouthShape, isVoiced);
+
+            document.getElementById('insp-symbol').textContent = item.symbol;
+            document.getElementById('insp-word').textContent = item.word;
+            document.getElementById('insp-word-ipa').textContent = item.wordIpa;
+            document.getElementById('insp-meaning').textContent = item.meaning;
+            document.getElementById('insp-mouth').textContent = item.mouth;
+
+            speakText(item.word);
+        }
+
+        function replayCurrentSound() {
+            if (currentSelectedItem) {
+                speakText(currentSelectedItem.word);
+            }
+        }
+
+        function speakText(text, btnElement = null) {
+            if (!('speechSynthesis' in window)) {
+                showToast('Trình duyệt chưa hỗ trợ đọc âm thanh tự động.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            const selectedAccent = document.getElementById('voice-accent')?.value || 'en-US';
+            utterance.lang = selectedAccent;
+            utterance.rate = isSlowMode ? 0.6 : 0.92;
+            utterance.pitch = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.lang.includes(selectedAccent) && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Daniel')))
+                                || voices.find(v => v.lang.includes(selectedAccent))
+                                || voices.find(v => v.lang.startsWith('en'));
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+
+            if (btnElement) {
+                btnElement.classList.add('ring-2', 'ring-brand-500');
+                setTimeout(() => btnElement.classList.remove('ring-2', 'ring-brand-500'), 700);
+            }
+
+            showToast(`Đang phát âm: <strong>${text}</strong> (${selectedAccent})`);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+
+        function toggleSlowMode() {
+            isSlowMode = !isSlowMode;
+            const btn = document.getElementById('slow-mode-btn');
+            const label = document.getElementById('slow-mode-label');
+            if (isSlowMode) {
+                btn.classList.add('bg-amber-50', 'border-amber-400', 'text-amber-700');
+                label.textContent = 'Chậm (0.6x)';
+            } else {
+                btn.classList.remove('bg-amber-50', 'border-amber-400', 'text-amber-700');
+                label.textContent = 'Chuẩn (1x)';
+            }
+        }
+
+        function filterIPA(category) {
+            document.querySelectorAll('.ipa-tab').forEach(tab => {
+                tab.classList.remove('bg-white', 'text-brand-700', 'shadow-sm', 'font-bold');
+                tab.classList.add('text-slate-600', 'font-semibold');
+            });
+            const activeTab = document.getElementById(`tab-${category}`);
+            activeTab.classList.add('bg-white', 'text-brand-700', 'shadow-sm', 'font-bold');
+            activeTab.classList.remove('text-slate-600', 'font-semibold');
+
+            const groups = ['monophthongs', 'diphthongs', 'consonants'];
+            groups.forEach(g => {
+                const el = document.getElementById(`group-${g}`);
+                if (category === 'all' || category === g) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+        }
+
+        function showToast(htmlContent) {
+            const toast = document.getElementById('audio-toast');
+            const textEl = document.getElementById('audio-toast-text');
+            textEl.innerHTML = htmlContent;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2200);
+        }
+
+        /**
+         * ==================== MINI-GAME (3 QUICK QUESTIONS) ====================
+         */
+        const quizQuestions = [
+            {
+                prompt: 'Phiên âm này tương ứng với từ tiếng Anh nào?',
+                ipa: '/ˈbɪz.nəs/',
+                audioWord: 'business',
+                options: ['busyness', 'business', 'basin', 'bison'],
+                correctIndex: 1,
+                explanation: 'Chuẩn xác! <strong>business</strong> chỉ có 2 âm tiết <span class="font-mono">/ˈbɪz.nəs/</span> (chữ "i" ở giữa bị câm).'
+            },
+            {
+                prompt: 'Từ nào bắt đầu bằng âm vô thanh /θ/ (đặt lưỡi giữa hai hàm răng)?',
+                ipa: '/θɪŋk/',
+                audioWord: 'think',
+                options: ['this', 'think', 'these', 'mother'],
+                correctIndex: 1,
+                explanation: 'Chính xác! <strong>think</strong> <span class="font-mono">/θɪŋk/</span> dùng âm vô thanh /θ/, còn lại là âm hữu thanh /ð/.'
+            },
+            {
+                prompt: 'Phiên âm /ˈkʌmf.tə.bəl/ là cách đọc đúng của từ nào?',
+                ipa: '/ˈkʌmf.tə.bəl/',
+                audioWord: 'comfortable',
+                options: ['comparable', 'compatible', 'comfortable', 'company'],
+                correctIndex: 2,
+                explanation: 'Tuyệt vời! <strong>comfortable</strong> nhấn trọng âm ngay âm tiết đầu tiên <span class="font-mono">/ˈkʌmf/</span>.'
+            }
+        ];
+
+        let currentQuizIdx = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIdx];
+            quizAnswered = false;
+
+            document.getElementById('quiz-progress-text').textContent = `Câu ${currentQuizIdx + 1} / ${quizQuestions.length}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuizIdx + 1) / quizQuestions.length) * 100}%`;
+            document.getElementById('quiz-prompt').textContent = q.prompt;
+            document.getElementById('quiz-ipa-display').textContent = q.ipa;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'quiz-opt-btn p-4 rounded-2xl bg-white border border-slate-200 hover:border-brand-400 text-left font-bold text-slate-800 transition-all flex items-center gap-3 shadow-sm';
+                btn.onclick = () => selectQuizAnswer(idx, btn);
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 font-extrabold text-xs flex items-center justify-center shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span>${opt}</span>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+        }
+
+        function playQuizAudio() {
+            const q = quizQuestions[currentQuizIdx];
+            speakText(q.audioWord);
+        }
+
+        function selectQuizAnswer(selectedIdx, btnEl) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const q = quizQuestions[currentQuizIdx];
+            const allBtns = document.querySelectorAll('.quiz-opt-btn');
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('quiz-next-btn');
+
+            allBtns.forEach((b, i) => {
+                b.disabled = true;
+                if (i === q.correctIndex) {
+                    b.classList.remove('border-slate-200', 'bg-white');
+                    b.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+                }
+            });
+
+            if (selectedIdx === q.correctIndex) {
+                quizScore++;
+                document.getElementById('quiz-score-badge').textContent = `Điểm: ${quizScore}`;
+                feedbackEl.className = 'p-3.5 rounded-2xl text-xs sm:text-sm font-medium mb-5 bg-emerald-50 border border-emerald-200 text-emerald-900';
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> ${q.explanation}`;
+            } else {
+                btnEl.classList.remove('border-slate-200', 'bg-white');
+                btnEl.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900');
+                feedbackEl.className = 'p-3.5 rounded-2xl text-xs sm:text-sm font-medium mb-5 bg-rose-50 border border-rose-200 text-rose-900';
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 mr-1.5"></i> Chưa đúng rồi! ${q.explanation}`;
+            }
+
+            feedbackEl.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+            nextBtn.innerHTML = currentQuizIdx === quizQuestions.length - 1
+                ? 'Xem kết quả <i class="fa-solid fa-trophy ml-1"></i>'
+                : 'Tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>';
+        }
+
+        function nextQuizQuestion() {
+            if (currentQuizIdx < quizQuestions.length - 1) {
+                currentQuizIdx++;
+                renderQuizQuestion();
+            } else {
+                document.getElementById('quiz-question-box').classList.add('hidden');
+                document.getElementById('quiz-result-box').classList.remove('hidden');
+                document.getElementById('final-score').textContent = `${quizScore} / ${quizQuestions.length}`;
+
+                const msgEl = document.getElementById('final-message');
+                if (quizScore === quizQuestions.length) {
+                    msgEl.textContent = 'Xuất sắc! Bạn đã sẵn sàng làm chủ phát âm chuẩn cùng Compass English.';
+                } else {
+                    msgEl.textContent = 'Khá tốt! Bấm vào bảng 44 âm phía trên để nghe thêm khẩu hình và thử lại nhé.';
+                }
+            }
+        }
+
+        function restartQuiz() {
+            currentQuizIdx = 0;
+            quizScore = 0;
+            document.getElementById('quiz-score-badge').textContent = 'Điểm: 0';
+            document.getElementById('quiz-result-box').classList.add('hidden');
+            document.getElementById('quiz-question-box').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            renderIPAGrids();
+            renderQuizQuestion();
+        });
+    </script>
+</body>
+</html>
